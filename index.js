@@ -3,37 +3,34 @@ const {basename, dirname, extname, normalize} = require('path');
 
 const {isFunction, isString} = require('@taufik-nurrohman/is');
 
-const copy = (from, to, then) => {
-    if (isFunction(then)) {
-        return copyFile(from, to, (e, data) => then(data, e));
-    }
-    return copyFileSync(from, to);
+const trimEnds = path => {
+    return path.replace(/[\\\/]+$/, "");
+};
+
+const copy = (from, to, name) => {
+    to = trimEnds(to) + '/' + (name || basename(from));
+    copyFileSync(from, to);
 };
 
 const get = path => {
     return path && existsSync(path) ? normalize(path) : false;
 };
 
-const getContent = (path, then) => {
-    if (isFunction(then)) {
-        return readFile(path, 'utf8', (e, data) => then(data, e));
-    }
-    return false !== get(path) ? readFileSync(path, 'utf8') : null;
+const getContent = path => {
+    return false !== isFile(path) ? readFileSync(path, 'utf8') : null;
 };
 
 const isFile = path => {
-    return statSync(path).isFile() ? normalize(path) : false;
+    return get(path) && statSync(path).isFile() ? normalize(path) : false;
 };
 
-const move = (from, to, then) => {
-    if (isFunction(to)) {
-        then = to;
-        to = false;
-    }
-    if (isFunction(then)) {
-        to ? rename(from, to, (e, data) => then(data, e)) : unlink(from, (e, data) => then(data, e));
+const move = (from, to, name) => {
+    to = trimEnds(to);
+    if (!to) {
+        unlinkSync(from);
     } else {
-        to ? renameSync(from, to) : unlinkSync(from);
+        to += '/' + (name || basename(from));
+        renameSync(from, to);
     }
 };
 
@@ -56,15 +53,12 @@ const parseContent = (content, data, pattern = '%\\((\\S+?)\\)', separator = '.'
     });
 };
 
-const set = (path, then) => {
-    !get(path) && setContent(path, "", then);
+const set = path => {
+    !get(path) && setContent(path, "");
 };
 
-const setContent = (path, content, then) => {
-    if (isFunction(then)) {
-        return writeFile(path, content, 'utf8', (e, data) => then(data, e));
-    }
-    return writeFileSync(path, content, 'utf8');
+const setContent = (path, content) => {
+    writeFileSync(path, content, 'utf8');
 };
 
 const x = path => {
@@ -79,14 +73,10 @@ Object.assign(exports || {}, {
     getContent,
     isFile,
     move,
-    set,
-    setContent
-});
-
-// Can be used in the browser
-Object.assign(exports || window || {}, {
     name,
     parent,
     parseContent,
+    set,
+    setContent,
     x
 });

@@ -1,39 +1,36 @@
-import {copyFile, copyFileSync, existsSync, readFile, readFileSync, rename, renameSync, statSync, unlink, unlinkSync, writeFile, writeFileSync} from 'fs';
+import {copyFileSync, existsSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync} from 'fs';
 import {basename, dirname, extname, normalize} from 'path';
 
 import {isFunction, isString} from '@taufik-nurrohman/is';
 
-export const copy = (from, to, then) => {
-    if (isFunction(then)) {
-        return copyFile(from, to, (e, data) => then(data, e));
-    }
-    return copyFileSync(from, to);
+const trimEnds = path => {
+    return path.replace(/[\\\/]+$/, "");
+};
+
+export const copy = (from, to, name) => {
+    to = trimEnds(to) + '/' + (name || basename(from));
+    copyFileSync(from, to);
 };
 
 export const get = path => {
     return path && existsSync(path) ? normalize(path) : false;
 };
 
-export const getContent = (path, then) => {
-    if (isFunction(then)) {
-        return readFile(path, 'utf8', (e, data) => then(data, e));
-    }
-    return false !== get(path) ? readFileSync(path, 'utf8') : null;
+export const getContent = path => {
+    return false !== isFile(path) ? readFileSync(path, 'utf8') : null;
 };
 
 export const isFile = path => {
-    return statSync(path).isFile() ? normalize(path) : false;
+    return get(path) && statSync(path).isFile() ? normalize(path) : false;
 };
 
-export const move = (from, to, then) => {
-    if (isFunction(to)) {
-        then = to;
-        to = false;
-    }
-    if (isFunction(then)) {
-        to ? rename(from, to, (e, data) => then(data, e)) : unlink(from, (e, data) => then(data, e));
+export const move = (from, to, name) => {
+    to = trimEnds(to);
+    if (!to) {
+        unlinkSync(from);
     } else {
-        to ? renameSync(from, to) : unlinkSync(from);
+        to += '/' + (name || basename(from));
+        renameSync(from, to);
     }
 };
 
@@ -56,16 +53,12 @@ export const parseContent = (content, data, pattern = '%\\((\\S+?)\\)', separato
     });
 };
 
-export const set = (path, then) => {
-    !get(path) && setContent(path, "", then);
+export const set = path => {
+    !get(path) && setContent(path, "");
 };
 
-export const setContent = (path, content, then) => {
-    if (isFunction(then)) {
-        writeFile(path, content, 'utf8', (e, data) => then(data, e));
-    } else {
-        writeFileSync(path, content, 'utf8');
-    }
+export const setContent = (path, content) => {
+    writeFileSync(path, content, 'utf8');
 };
 
 export const x = path => {

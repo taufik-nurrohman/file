@@ -33,31 +33,26 @@ if (null !== content) {
 Methods
 -------
 
-### copy(from, to, then)
+### copy(from, to, name)
 
 Copy a file.
 
 ~~~ .js
-copy('package.json', 'asdf.json');
-~~~
-
-~~~ .js
-copy('package.json', 'asdf.json', () => {
-    // …
-});
+copy('./package.json', './foo/bar/baz');
+copy('./package.json', './foo/bar/baz', 'package.json.bak');
 ~~~
 
 ### get(path)
 
-Check if file does exist.
+Check if file/folder does exist.
 
 ~~~ .js
-if (false !== get('package.json')) {
+if (false !== get('./package.json')) {
     // …
 }
 ~~~
 
-### getContent(path, then)
+### getContent(path)
 
 Get file content as string.
 
@@ -69,52 +64,32 @@ if (null !== content) {
 }
 ~~~
 
-~~~ .js
-getContent('package.json', content => {
-    console.log(content);
-});
-~~~
-
 ### isFile(path)
 
 Check if path is a file.
 
 ~~~ .js
-if (isFile('/foo/bar/baz.qux')) {
+if (isFile('./foo/bar/baz.qux')) {
     // …
 }
 ~~~
 
-### move(from, to, then)
+### move(from, to, name)
 
 Delete or move a file.
 
 ~~~ .js
 // Delete
-move('package.json', false);
+move('./package.json', false);
 
 // Delete
-move('package.json');
+move('./package.json');
 
 // Move
-move('package.json', 'asdf.json');
-~~~
-
-~~~ .js
-// Delete
-move('package.json', false, () => {
-    // …
-});
-
-// Delete
-move('package.json', () => {
-    // …
-});
+move('./package.json', './foo/bar/baz');
 
 // Move
-move('package.json', 'asdf.json', () => {
-    // …
-});
+move('./package.json', './foo/bar/baz', 'package.json.bak');
 ~~~
 
 ### name(path, x = false)
@@ -132,9 +107,10 @@ console.log(name('/foo/bar/baz.qux', 'asdf'));
 Get parent path from file path.
 
 ~~~ .js
-console.log(parent('/foo/bar/baz.qux'));
-console.log(parent('/foo/bar/baz'));
-console.log(parent('/'));
+console.log(parent('./foo/bar/baz.qux'));
+console.log(parent('./foo/bar/baz'));
+console.log(parent('./'));
+console.log(parent('.'));
 console.log(parent(""));
 ~~~
 
@@ -159,7 +135,7 @@ console.log(parseContent(content, data));
 Create an empty file if it does not exist.
 
 ~~~ .js
-set('/foo/bar/baz.qux');
+set('./foo/bar/baz.qux');
 ~~~
 
 ### setContent(path, content)
@@ -167,13 +143,7 @@ set('/foo/bar/baz.qux');
 Create or overwrite a file.
 
 ~~~ .js
-setContent('/foo/bar/baz.qux', 'foo bar baz');
-~~~
-
-~~~ .js
-setContent('/foo/bar/baz.qux', 'foo bar baz', () => {
-    // …
-});
+setContent('./foo/bar/baz.qux', 'foo bar baz');
 ~~~
 
 ### x(path)
@@ -181,11 +151,12 @@ setContent('/foo/bar/baz.qux', 'foo bar baz', () => {
 Get file extension from file path.
 
 ~~~ .js
-console.log(x('/foo/bar/baz.qux'));
-console.log(x('/foo/bar/baz'));
-console.log(x('/foo/bar/baz.'));
-console.log(x('/foo/bar/.baz'));
-console.log(x('/foo/bar/.baz.qux'));
-console.log(x('/'));
+console.log(x('./foo/bar/baz.qux'));
+console.log(x('./foo/bar/baz'));
+console.log(x('./foo/bar/baz.'));
+console.log(x('./foo/bar/.baz'));
+console.log(x('./foo/bar/.baz.qux'));
+console.log(x('./'));
+console.log(x('.'));
 console.log(x(""));
 ~~~
