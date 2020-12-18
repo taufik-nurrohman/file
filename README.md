@@ -1,7 +1,7 @@
-File Utility
-============
+File
+====
 
-> Utility of native file system implementation in Node.js. Not to be used in the browser.
+Utility functions of native file system API in Node.js. Not to be used in the browser.
 
 Usage
 -----
@@ -33,56 +33,83 @@ if (null !== content) {
 Methods
 -------
 
-### exist(path)
+### copy(from, to, then)
+
+Copy a file.
 
 ~~~ .js
-if (exist('package.json')) {
-    // ...
+copy('package.json', 'asdf.json');
+~~~
+
+~~~ .js
+copy('package.json', 'asdf.json', () => {
+    // …
+});
+~~~
+
+### get(path)
+
+Check if file does exist.
+
+~~~ .js
+if (false !== get('package.json')) {
+    // …
 }
 ~~~
 
 ### getContent(path, then)
 
+Get file content as string.
+
 ~~~ .js
 let content = getContent('package.json');
 
 if (null !== content) {
-    // ...
+    // …
 }
 ~~~
 
 ~~~ .js
-getContent('package.json', (error, content) => {
-    if (error) {
-        throw error;
-    }
+getContent('package.json', content => {
     console.log(content);
 });
 ~~~
 
 ### move(from, to, then)
 
+Delete or move a file.
+
 ~~~ .js
 // Delete
 move('package.json', false);
 
-// Rename
+// Delete
+move('package.json');
+
+// Move
 move('package.json', 'asdf.json');
 ~~~
 
 ~~~ .js
 // Delete
-move('package.json', false, error => {
-    // ...
+move('package.json', false, () => {
+    // …
 });
 
-// Rename
-move('package.json', 'asdf.json', error => {
-    // ...
+// Delete
+move('package.json', () => {
+    // …
+});
+
+// Move
+move('package.json', 'asdf.json', () => {
+    // …
 });
 ~~~
 
 ### name(path, x = false)
+
+Get file name from file path.
 
 ~~~ .js
 console.log(name('/foo/bar/baz.qux'));
@@ -92,6 +119,8 @@ console.log(name('/foo/bar/baz.qux', 'asdf'));
 
 ### parent(path)
 
+Get parent path from file path.
+
 ~~~ .js
 console.log(parent('/foo/bar/baz.qux'));
 console.log(parent('/foo/bar/baz'));
@@ -100,6 +129,8 @@ console.log(parent(""));
 ~~~
 
 ### parseContent(content, data, pattern = '%\\\\((\\\\S+?)\\\\)', separator = '.')
+
+Convert embedded variables with format such as `%(foo.bar)` in `content` with `data`.
 
 ~~~ .js
 let content = 'foo %(bar) %(baz.qux)';
@@ -113,19 +144,31 @@ let data = {
 console.log(parseContent(content, data));
 ~~~
 
+### set(path)
+
+Create an empty file if it does not exist.
+
+~~~ .js
+set('/foo/bar/baz.qux');
+~~~
+
 ### setContent(path, content)
+
+Create or overwrite a file.
 
 ~~~ .js
 setContent('/foo/bar/baz.qux', 'foo bar baz');
 ~~~
 
 ~~~ .js
-setContent('/foo/bar/baz.qux', 'foo bar baz', error => {
-    // ...
+setContent('/foo/bar/baz.qux', 'foo bar baz', () => {
+    // …
 });
 ~~~
 
 ### x(path)
+
+Get file extension from file path.
 
 ~~~ .js
 console.log(x('/foo/bar/baz.qux'));

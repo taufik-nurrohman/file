@@ -1,6 +1,6 @@
 {
   "author": "Taufik Nurrohman",
-  "bugs": "https://github.com/taufik-nurrohman/event/issues",
+  "bugs": "https://github.com/taufik-nurrohman/file/issues",
   "devDependencies": {
     "@taufik-nurrohman/is": "^0.0.6",
     "ava": "^3.14.0"
