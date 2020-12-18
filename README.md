@@ -1,5 +1,5 @@
-File
-====
+File Utility
+============
 
 Utility functions of native file system API in Node.js. Not to be used in the browser.
 
