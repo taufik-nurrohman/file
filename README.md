@@ -37,7 +37,7 @@ Methods
 
 Copy a file.
 
-~~~ .js
+~~~ js
 copy('./package.json', './foo/bar/baz');
 copy('./package.json', './foo/bar/baz', 'package.json.bak');
 ~~~
@@ -46,7 +46,7 @@ copy('./package.json', './foo/bar/baz', 'package.json.bak');
 
 Check if file/folder does exist.
 
-~~~ .js
+~~~ js
 if (false !== get('./package.json')) {
     // …
 }
@@ -56,7 +56,7 @@ if (false !== get('./package.json')) {
 
 Get file content as string.
 
-~~~ .js
+~~~ js
 let content = getContent('package.json');
 
 if (null !== content) {
@@ -68,7 +68,7 @@ if (null !== content) {
 
 Check if path is a file.
 
-~~~ .js
+~~~ js
 if (isFile('./foo/bar/baz.qux')) {
     // …
 }
@@ -78,7 +78,7 @@ if (isFile('./foo/bar/baz.qux')) {
 
 Delete or move a file.
 
-~~~ .js
+~~~ js
 // Delete
 move('./package.json', false);
 
@@ -96,7 +96,7 @@ move('./package.json', './foo/bar/baz', 'package.json.bak');
 
 Get file name from file path.
 
-~~~ .js
+~~~ js
 console.log(name('/foo/bar/baz.qux'));
 console.log(name('/foo/bar/baz.qux', true));
 console.log(name('/foo/bar/baz.qux', 'asdf'));
@@ -106,7 +106,7 @@ console.log(name('/foo/bar/baz.qux', 'asdf'));
 
 Get parent path from file path.
 
-~~~ .js
+~~~ js
 console.log(parent('./foo/bar/baz.qux'));
 console.log(parent('./foo/bar/baz'));
 console.log(parent('./'));
@@ -118,7 +118,7 @@ console.log(parent(""));
 
 Convert embedded variables with format such as `%(foo.bar)` in `content` with `data`.
 
-~~~ .js
+~~~ js
 let content = 'foo %(bar) %(baz.qux)';
 let data = {
         bar: 'bar',
@@ -134,7 +134,7 @@ console.log(parseContent(content, data));
 
 Create an empty file if it does not exist.
 
-~~~ .js
+~~~ js
 set('./foo/bar/baz.qux');
 ~~~
 
@@ -142,7 +142,7 @@ set('./foo/bar/baz.qux');
 
 Create or overwrite a file.
 
-~~~ .js
+~~~ js
 setContent('./foo/bar/baz.qux', 'foo bar baz');
 ~~~
 
@@ -150,7 +150,7 @@ setContent('./foo/bar/baz.qux', 'foo bar baz');
 
 Get file extension from file path.
 
-~~~ .js
+~~~ js
 console.log(x('./foo/bar/baz.qux'));
 console.log(x('./foo/bar/baz'));
 console.log(x('./foo/bar/baz.'));
