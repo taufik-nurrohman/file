@@ -1,4 +1,4 @@
-const {copyFile, copyFileSync, existsSync, readFile, readFileSync, rename, renameSync, statSync, unlink, unlinkSync, writeFile, writeFileSync} = require('fs');
+const {copyFileSync, existsSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync} = require('fs');
 const {basename, dirname, extname, normalize} = require('path');
 
 const {isFunction, isString} = require('@taufik-nurrohman/is');
