@@ -11,10 +11,10 @@ Usage
 ~~~ js
 const {getContent, setContent} = require('@taufik-nurrohman/file');
 
-let content = getContent('package.json');
+let content = getContent('./package.json');
 
 if (null !== content) {
-    setContent('package.json', content.replace(/"/g, "'"));
+    setContent('./package.json', content.replace(/"/g, "'"));
 }
 ~~~
 
@@ -23,10 +23,10 @@ if (null !== content) {
 ~~~ js
 import {getContent, setContent} = from '@taufik-nurrohman/file';
 
-let content = getContent('package.json');
+let content = getContent('./package.json');
 
 if (null !== content) {
-    setContent('package.json', content.replace(/"/g, "'"));
+    setContent('./package.json', content.replace(/"/g, "'"));
 }
 ~~~
 
@@ -57,7 +57,7 @@ if (false !== get('./package.json')) {
 Get file content as string.
 
 ~~~ js
-let content = getContent('package.json');
+let content = getContent('./package.json');
 
 if (null !== content) {
     // …
@@ -69,7 +69,7 @@ if (null !== content) {
 Check if path is a file.
 
 ~~~ js
-if (isFile('./foo/bar/baz.qux')) {
+if (false !== isFile('./foo/bar/baz.qux')) {
     // …
 }
 ~~~
@@ -97,9 +97,9 @@ move('./package.json', './foo/bar/baz', 'package.json.bak');
 Get file name from file path.
 
 ~~~ js
-console.log(name('/foo/bar/baz.qux'));
-console.log(name('/foo/bar/baz.qux', true));
-console.log(name('/foo/bar/baz.qux', 'asdf'));
+console.log(name('./foo/bar/baz.qux'));
+console.log(name('./foo/bar/baz.qux', true));
+console.log(name('./foo/bar/baz.qux', 'asdf'));
 ~~~
 
 ### parent(path)
