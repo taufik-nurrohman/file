@@ -75,6 +75,16 @@ getContent('package.json', content => {
 });
 ~~~
 
+### isFile(path)
+
+Check if path is a file.
+
+~~~ .js
+if (isFile('/foo/bar/baz.qux')) {
+    // …
+}
+~~~
+
 ### move(from, to, then)
 
 Delete or move a file.

@@ -21,6 +21,10 @@ export const getContent = (path, then) => {
     return false !== get(path) ? readFileSync(path, 'utf8') : null;
 };
 
+export const isFile = path => {
+    return statSync(path).isFile() ? normalize(path) : false;
+};
+
 export const move = (from, to, then) => {
     if (isFunction(to)) {
         then = to;

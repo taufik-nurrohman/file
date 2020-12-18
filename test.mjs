@@ -13,6 +13,11 @@ test('getContent', t => {
     t.is('string' === typeof f.getContent('asdf'), false);
 });
 
+test('isFile', t => {
+    t.is(f.isFile('package.json'), 'package.json');
+    t.is(f.isFile('.github'), false);
+});
+
 test.todo('move');
 
 test('name', t => {
