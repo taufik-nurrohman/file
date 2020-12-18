@@ -99,7 +99,7 @@ console.log(parent('/'));
 console.log(parent(""));
 ~~~
 
-### parseContent(content, data, pattern = '%\\((\\S+?)\\)', separator = '.')
+### parseContent(content, data, pattern = '%\\\\((\\\\S+?)\\\\)', separator = '.')
 
 ~~~ .js
 let content = 'foo %(bar) %(baz.qux)';
