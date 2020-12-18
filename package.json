@@ -7,8 +7,8 @@
   },
   "description": "File system utility.",
   "exports": {
-    "import": "index.mjs",
-    "require": "index.js"
+    "import": "./index.mjs",
+    "require": "./index.js"
   },
   "files": [
     "index.js",
@@ -30,5 +30,5 @@
   "scripts": {
     "test": "ava test.mjs"
   },
-  "version": "0.0.3"
+  "version": "0.0.4"
 }
