@@ -1,19 +1,15 @@
 const {copyFileSync, existsSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync} = require('fs');
-const {basename, dirname, extname, normalize} = require('path');
+const {basename, dirname, extname, normalize, resolve} = require('path');
 
 const {isFunction, isString} = require('@taufik-nurrohman/is');
 
-const trimEnds = path => {
-    return path.replace(/[\\\/]+$/, "");
-};
-
 const copy = (from, to, name) => {
-    to = trimEnds(to) + '/' + (name || basename(from));
+    to = normalize(to) + '/' + (name || basename(from));
     copyFileSync(from, to);
 };
 
 const get = path => {
-    return path && existsSync(path) ? normalize(path) : false;
+    return path && existsSync(path) ? resolve(normalize(path)) : false;
 };
 
 const getContent = path => {
@@ -21,11 +17,11 @@ const getContent = path => {
 };
 
 const isFile = path => {
-    return get(path) && statSync(path).isFile() ? normalize(path) : false;
+    return (path = get(path)) && statSync(path).isFile() ? path : false;
 };
 
 const move = (from, to, name) => {
-    to = trimEnds(to);
+    to = normalize(to);
     if (!to) {
         unlinkSync(from);
     } else {
@@ -43,7 +39,7 @@ const name = (path, x = false) => {
 
 const parent = path => {
     let value = dirname(normalize(path));
-    return "" !== value && '.' !== value && '/' !== value ? value : null;
+    return "" !== value && '.' !== value && '/' !== value ? resolve(value) : null;
 };
 
 const parseContent = (content, data, pattern = '%\\((\\S+?)\\)', separator = '.') => {
@@ -66,7 +62,6 @@ const x = path => {
     return "" !== value ? value.slice(1) : null;
 };
 
-// Cannot be used in the browser
 Object.assign(exports || {}, {
     copy,
     get,

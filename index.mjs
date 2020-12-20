@@ -1,19 +1,15 @@
 import {copyFileSync, existsSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync} from 'fs';
-import {basename, dirname, extname, normalize} from 'path';
+import {basename, dirname, extname, normalize, resolve} from 'path';
 
 import {isFunction, isString} from '@taufik-nurrohman/is';
 
-const trimEnds = path => {
-    return path.replace(/[\\\/]+$/, "");
-};
-
 export const copy = (from, to, name) => {
-    to = trimEnds(to) + '/' + (name || basename(from));
+    to = normalize(to) + '/' + (name || basename(from));
     copyFileSync(from, to);
 };
 
 export const get = path => {
-    return path && existsSync(path) ? normalize(path) : false;
+    return path && existsSync(path) ? resolve(normalize(path)) : false;
 };
 
 export const getContent = path => {
@@ -21,11 +17,11 @@ export const getContent = path => {
 };
 
 export const isFile = path => {
-    return get(path) && statSync(path).isFile() ? normalize(path) : false;
+    return (path = get(path)) && statSync(path).isFile() ? path : false;
 };
 
 export const move = (from, to, name) => {
-    to = trimEnds(to);
+    to = normalize(to);
     if (!to) {
         unlinkSync(from);
     } else {
@@ -43,7 +39,7 @@ export const name = (path, x = false) => {
 
 export const parent = path => {
     let value = dirname(normalize(path));
-    return "" !== value && '.' !== value && '/' !== value ? value : null;
+    return "" !== value && '.' !== value && '/' !== value ? resolve(value) : null;
 };
 
 export const parseContent = (content, data, pattern = '%\\((\\S+?)\\)', separator = '.') => {
