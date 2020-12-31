@@ -21,7 +21,7 @@ if (null !== content) {
 ### ECMAScript
 
 ~~~ js
-import {getContent, setContent} = from '@taufik-nurrohman/file';
+import {getContent, setContent} from '@taufik-nurrohman/file';
 
 let content = getContent('./package.json');
 
