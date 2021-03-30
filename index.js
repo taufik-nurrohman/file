@@ -21,10 +21,10 @@ const isFile = path => {
 };
 
 const move = (from, to, name) => {
-    to = normalize(to);
     if (!to) {
         unlinkSync(from);
     } else {
+        to = normalize(to);
         to += '/' + (name || basename(from));
         renameSync(from, to);
     }
