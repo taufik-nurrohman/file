@@ -4,10 +4,10 @@
   "depencencies": {
     "@taufik-nurrohman/is": "^0.1.1"
   },
+  "description": "File system utility.",
   "devDependencies": {
     "ava": "^3.15.0"
   },
-  "description": "File system utility.",
   "exports": {
     "import": "./index.mjs",
     "require": "./index.js"
