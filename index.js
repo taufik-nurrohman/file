@@ -62,7 +62,7 @@ const x = path => {
     return "" !== value ? value.slice(1) : null;
 };
 
-Object.assign(exports || {}, {
+Object.assign(exports, {
     copy,
     get,
     getContent,
