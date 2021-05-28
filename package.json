@@ -2,7 +2,7 @@
   "author": "Taufik Nurrohman",
   "bugs": "https://github.com/taufik-nurrohman/file/issues",
   "depencencies": {
-    "@taufik-nurrohman/is": "^0.1.1"
+    "@taufik-nurrohman/is": "^0.1.2"
   },
   "description": "File system utility.",
   "devDependencies": {
@@ -32,5 +32,5 @@
   "scripts": {
     "test": "ava test.mjs"
   },
-  "version": "0.0.10"
+  "version": "0.0.11"
 }
