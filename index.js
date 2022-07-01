@@ -1,8 +1,6 @@
 const {copyFileSync, existsSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync} = require('fs');
 const {basename, dirname, extname, normalize, resolve} = require('path');
 
-const {isFunction, isString} = require('@taufik-nurrohman/is');
-
 const copy = (from, to, name) => {
     to = normalize(to) + '/' + (name || basename(from));
     copyFileSync(from, to);
@@ -33,7 +31,7 @@ const move = (from, to, name) => {
 const name = (path, x = false) => {
     let ext = extname(path = normalize(path));
     let value = basename(path).slice(0, -ext.length);
-    value = x ? value + (isString(x) ? '.' + x : ext) : value;
+    value = x ? value + ('string' === typeof x ? '.' + x : ext) : value;
     return "" !== value ? value : null;
 };
 
@@ -45,7 +43,7 @@ const parent = path => {
 const parseContent = (content, data, pattern = '%\\((\\S+?)\\)', separator = '.') => {
     return content.replace(new RegExp(pattern, 'g'), (m0, m1) => {
         // <https://stackoverflow.com/a/6394168>
-        return m1.split(separator).reduce((o, k) => o[k], data);
+        return m1.split(separator).reduce((o, k) => o[k] || "", data);
     });
 };
 

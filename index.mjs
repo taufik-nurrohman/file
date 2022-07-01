@@ -1,8 +1,6 @@
 import {copyFileSync, existsSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync} from 'fs';
 import {basename, dirname, extname, normalize, resolve} from 'path';
 
-import {isFunction, isString} from '@taufik-nurrohman/is';
-
 export const copy = (from, to, name) => {
     to = normalize(to) + '/' + (name || basename(from));
     copyFileSync(from, to);
@@ -33,7 +31,7 @@ export const move = (from, to, name) => {
 export const name = (path, x = false) => {
     let ext = extname(path = normalize(path));
     let value = basename(path).slice(0, -ext.length);
-    value = x ? value + (isString(x) ? '.' + x : ext) : value;
+    value = x ? value + ('string' === typeof x ? '.' + x : ext) : value;
     return "" !== value ? value : null;
 };
 
@@ -45,7 +43,7 @@ export const parent = path => {
 export const parseContent = (content, data, pattern = '%\\((\\S+?)\\)', separator = '.') => {
     return content.replace(new RegExp(pattern, 'g'), (m0, m1) => {
         // <https://stackoverflow.com/a/6394168>
-        return m1.split(separator).reduce((o, k) => o[k], data);
+        return m1.split(separator).reduce((o, k) => o[k] || "", data);
     });
 };
 

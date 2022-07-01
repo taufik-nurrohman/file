@@ -1,12 +1,9 @@
 {
   "author": "Taufik Nurrohman",
   "bugs": "https://github.com/taufik-nurrohman/file/issues",
-  "depencencies": {
-    "@taufik-nurrohman/is": "^0.1.2"
-  },
   "description": "File system utility.",
   "devDependencies": {
-    "ava": "^3.15.0"
+    "ava": "^4.3.0"
   },
   "exports": {
     "import": "./index.mjs",
