@@ -3,7 +3,7 @@
   "bugs": "https://github.com/taufik-nurrohman/file/issues",
   "description": "File system utility.",
   "devDependencies": {
-    "ava": "^4.3.0"
+    "ava": "^8.0.1"
   },
   "exports": {
     "import": "./index.mjs",
@@ -29,5 +29,5 @@
   "scripts": {
     "test": "ava test.mjs"
   },
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
